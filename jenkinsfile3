@@ -3,7 +3,7 @@
 pipeline {
     agent any
     tools{
-        jdk 'jdk-8'
+        jdk 'oraclejava'
     }
 
     stages {
@@ -28,17 +28,11 @@ pipeline {
             }
         }
 		
-		stage('nexus artifactory') {
-            steps {
-                echo 'publish to nexus'
-			    sh 'mvn  deploy'
-            }
-        }
 		stage('deploy to tomcat') {
             steps {
                 echo 'tomcat deploy'
-			    deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://100.25.144.30:8091/')], contextPath: 'mc-app-batch13', war: '**/*.war'
-            }
+                      deploy adapters: [tomcat9(credentialsId: 'farmer-app', path: '', url: 'http://34.203.216.209:8091')], contextPath: 'farmers-app', war: '**/*.war'       
         }
+             }
     }
 }
