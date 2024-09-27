@@ -10,14 +10,16 @@ pipeline {
         stage('git') {
             steps {
                 echo 'scm'
-				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit13.git'
+				git branch: 'main', url: 'https://github.com/Bathalajanardhan/janardhan-java.git'
             }
         }
 		
 		stage('sonar') {
             steps {
                 echo 'scanning project'
-			    sh 'mvn sonar:sonar'
+			    sh 'mvn clean compile
+                            sh 'mvn sonar:sonar \ -Dsonar.host.url=http://3.86.216.163:9000 \
+                              -Dsonar.login=639cb85fbe49f629df8de7c4d6f28b535bc1132b'
             }
         }
 		
